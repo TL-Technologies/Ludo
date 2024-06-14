@@ -4,6 +4,7 @@ public static class StaticData
 {
 
    public static byte PlayersFull = 45;
+   public static byte GameStart = 46;
    
    
    

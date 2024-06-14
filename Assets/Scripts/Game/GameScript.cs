@@ -1,11 +1,24 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
+using Photon.Pun.Demo.PunBasics;
+using Photon.Realtime;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class GameScript : MonoBehaviour {
+public class GameScript : MonoBehaviour
+{
+	public static GameScript instance;
 
+	private void Awake()
+	{
+		instance = this;
+	}
+
+	public Button startPlaying;
+	public GameObject startPlayingPanel;
 	private int totalBlueInHouse,totalRedInHouse,totalGreenInHouse,totalYellowInHouse;
 
 	public GameObject frameRed,frameGreen, frameBlue, frameYellow;
@@ -3841,9 +3854,27 @@ public class GameScript : MonoBehaviour {
 	}
 	//=============================================================================================================================
 	// Use this for initialization
-	void Start () 
 
+	private void Start()
 	{
+		startPlaying.onClick.AddListener(()=>
+		{
+			
+			StartNow();
+			
+			object[] data =
+			{
+				PhotonNetwork.LocalPlayer,
+			};
+			
+			PhotonController.instance.RaiseEvt(StaticData.GameStart, data, ReceiverGroup.Others);
+		});	
+	}
+
+	internal void StartNow () 
+	{
+		startPlayingPanel.SetActive(false);
+		MainMenuScript.howManyPlayers = 2;
 		QualitySettings.vSyncCount = 1;
 		Application.targetFrameRate = 30;
 
@@ -3855,7 +3886,6 @@ public class GameScript : MonoBehaviour {
 		dice4_Roll_Animation.SetActive (false);
 		dice5_Roll_Animation.SetActive (false);
 		dice6_Roll_Animation.SetActive (false);
-
 		// Players initial positions.....
 		redPlayerI_Pos = redPlayerI.transform.position;
 		redPlayerII_Pos = redPlayerII.transform.position;

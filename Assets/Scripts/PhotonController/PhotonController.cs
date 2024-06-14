@@ -3,6 +3,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -40,7 +41,12 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
 
     private void Update()
     {
-        m_ConnectionStatus.text = "State : " + PhotonNetwork.NetworkClientState;
+        if (m_ConnectionStatus.text != null)
+        {
+            m_ConnectionStatus.text = "State : " + PhotonNetwork.NetworkClientState;
+            
+        }
+      
     }
 
 
@@ -87,13 +93,24 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         PhotonNetwork.JoinRoom(code);
     }
 
+    private void CheckMasterClient()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            this.LogColor("I am the Master Client");
+        }
+        else
+        {
+            this.LogColor("I am not the Master Client");
+        }
+    }
     #region Pun Callbacks
 
     public override void OnConnectedToMaster()
     {
         this.Log("Connected To Master");
+        CheckMasterClient();
         next.interactable = true;
-        PhotonNetwork.JoinLobby();
     }
 
     public override void OnJoinedLobby()
@@ -106,12 +123,18 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         this.Log(PhotonNetwork.CurrentRoom + " is created!");
         roomName = PhotonNetwork.CurrentRoom.Name;
         this.Log("Room id " + roomName);
+        SceneManager.LoadScene(1);
     }
 
     public override void OnJoinedRoom()
     {
         this.Log(PhotonNetwork.LocalPlayer.NickName + " Joined");
         this.Log(PhotonNetwork.PlayerList.Length.ToString());
+
+        if (PhotonNetwork.PlayerList.Length == 2)
+        {
+            SceneManager.LoadScene(1);
+        }
         
         if (!PhotonNetwork.IsMasterClient)
         {
@@ -140,7 +163,7 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
     #region RaiseEvent
 
 
-    private void RaiseEvt(byte code, object data, ReceiverGroup options)
+    internal void RaiseEvt(byte code, object data, ReceiverGroup options)
     {
         RaiseEventOptions receiverOptions = new RaiseEventOptions { Receivers = options };
         PhotonNetwork.RaiseEvent(code, data, receiverOptions, SendOptions.SendReliable);
@@ -158,6 +181,16 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
             var player2Name = (string)receivedData[2];
             this.LogColor("Player 1 name = " + player1Name);
             this.LogColor("Player 2  name= " + player2Name);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                this.LogColor("I am the Master Client");
+                GameScript.instance.startPlaying.interactable = true;
+            }
+        }
+
+        if (photonEvent.Code == StaticData.GameStart)
+        {
+            GameScript.instance.StartNow();
         }
     }
 

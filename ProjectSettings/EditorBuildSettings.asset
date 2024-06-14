@@ -11,3 +11,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Ludo.unity
     guid: fd7bfc118e1cf49228c394be753074b4
+  m_configObjects: {}

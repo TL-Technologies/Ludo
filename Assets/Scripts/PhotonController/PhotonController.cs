@@ -2,6 +2,7 @@ using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -187,10 +188,36 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
                 GameScript.instance.startPlaying.interactable = true;
             }
         }
-
+        
         if (photonEvent.Code == StaticData.GameStart)
         {
             GameScript.instance.StartNow();
+        }
+        
+        if (photonEvent.Code == StaticData.GreenPlayerTurn)
+        {
+            Debug.Log("Got it green");
+            var receivedData = (object[])photonEvent.CustomData;
+            var greenTurn = (string)receivedData[1];
+            this.LogColor("greenTurn " + greenTurn);
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                GameScript.instance.playerTurn = greenTurn;
+                GameScript.instance.InitializeDice();
+            }
+        }
+        
+        if (photonEvent.Code == StaticData.RedPlayerTurn)
+        {
+            Debug.Log("Got it red");
+            var receivedData = (object[])photonEvent.CustomData;
+            var redTurn = (string)receivedData[1];
+            this.LogColor("redTurn " + redTurn);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                GameScript.instance.playerTurn = redTurn;
+                GameScript.instance.InitializeDice();
+            }
         }
     }
 

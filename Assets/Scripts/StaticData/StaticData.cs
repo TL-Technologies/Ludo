@@ -3,8 +3,10 @@ using UnityEngine;
 public static class StaticData
 {
 
-   public static byte PlayersFull = 45;
+   public static byte PlayersFull = 21;
    public static byte GameStart = 46;
+   public static byte GreenPlayerTurn = 43;
+   public static byte RedPlayerTurn = 45;
    
    
    

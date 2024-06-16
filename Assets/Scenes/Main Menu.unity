@@ -4813,6 +4813,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1000013952323130, guid: eede082d6a291425db3fffb3c8370e57, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4000011175008892, guid: eede082d6a291425db3fffb3c8370e57, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -4843,6 +4847,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4000011175008892, guid: eede082d6a291425db3fffb3c8370e57, type: 3}
       propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013301780626, guid: eede082d6a291425db3fffb3c8370e57,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

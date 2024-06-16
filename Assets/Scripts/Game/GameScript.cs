@@ -17,6 +17,8 @@ public class GameScript : MonoBehaviour
 		instance = this;
 	}
 
+	public bool isGreen = false;
+	public bool isRed = false;
 	public Button startPlaying;
 	public GameObject startPlayingPanel;
 	private int totalBlueInHouse,totalRedInHouse,totalGreenInHouse,totalYellowInHouse;
@@ -41,7 +43,7 @@ public class GameScript : MonoBehaviour
 	public GameObject blueScreen, greenScreen, redScreen, yellowScreen;
 	public Text blueRankText, greenRankText, redRankText, yellowRankText;
 
-	private string playerTurn = "RED";
+	internal string playerTurn = "RED";
 	public Transform diceRoll;
 	public Button DiceRollButton;
 	public Transform redDiceRollPos, greenDiceRollPos, blueDiceRollPos, yellowDiceRollPos;
@@ -120,7 +122,7 @@ public class GameScript : MonoBehaviour
 	// =================== ROLL DICE RESULT ============================================================
 
 	// DICE Initialization after players have finished their turn---------------
-	void InitializeDice()
+	internal void InitializeDice()
 	{
 		DiceRollButton.interactable = true;
 
@@ -561,6 +563,7 @@ public class GameScript : MonoBehaviour
 						RedPlayerI_Script.redPlayerI_ColName = "none";
 						redPlayerI_Steps = 0;
 						playerTurn = "GREEN";
+						
 					}
 					if (currentPlayer == RedPlayerII_Script.redPlayerII_ColName && (currentPlayer != "Star" && RedPlayerII_Script.redPlayerII_ColName != "Star")) {
 						SoundManagerScript.dismissalAudioSource.Play ();
@@ -1131,24 +1134,40 @@ public class GameScript : MonoBehaviour
 		switch (MainMenuScript.howManyPlayers) 
 		{
 			case 2:
-				if (playerTurn == "RED") 
+				if (playerTurn == "RED")
 				{
+
+					object[] data =
+					{
+						PhotonNetwork.LocalPlayer,
+						playerTurn
+					};
+					Debug.Log("Event Red raise");
+					PhotonController.instance.RaiseEvt(StaticData.RedPlayerTurn, data, ReceiverGroup.Others);
+					isRed = false;
+
 					diceRoll.position = redDiceRollPos.position;
-
-					frameRed.SetActive (true);
-					frameGreen.SetActive (false);
-					frameBlue.SetActive (false);
-					frameYellow.SetActive (false);					
+					frameRed.SetActive(true);
+					frameGreen.SetActive(false);
+					frameBlue.SetActive(false);
+					frameYellow.SetActive(false);
 				}
-				if (playerTurn == "GREEN") 
-				{
-					diceRoll.position = greenDiceRollPos.position;
 
-					frameRed.SetActive (false);
-					frameGreen.SetActive (true);
-					frameBlue.SetActive (false);
-					frameYellow.SetActive (false);					
-				}	
+				if (playerTurn == "GREEN")
+				{
+					object[] data =
+					{
+						PhotonNetwork.LocalPlayer,
+						playerTurn
+					};
+					Debug.Log("Event Green raise");
+					PhotonController.instance.RaiseEvt(StaticData.GreenPlayerTurn, data, ReceiverGroup.Others);
+					diceRoll.position = greenDiceRollPos.position;
+					frameRed.SetActive(false);
+					frameGreen.SetActive(true);
+					frameBlue.SetActive(false);
+					frameYellow.SetActive(false);
+				}
 
 				GreenPlayerI_Button.interactable = false;
 				GreenPlayerII_Button.interactable = false;
@@ -3857,6 +3876,7 @@ public class GameScript : MonoBehaviour
 
 	private void Start()
 	{
+		//StartNow();
 		startPlaying.onClick.AddListener(()=>
 		{
 			

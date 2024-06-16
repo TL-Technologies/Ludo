@@ -218,7 +218,7 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
                 GameScript.instance.playerTurn = redTurn;
                 GameScript.instance.InitializeDice();
             }
-        }
+        }  
     }
 
     #endregion

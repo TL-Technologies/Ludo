@@ -164,7 +164,7 @@ public class GameScript : MonoBehaviour
 					}
 
 					redScreen.SetActive (true);
-					Debug.Log ("Red Player WON");
+					this.Log ("Red Player WON");
 					playerTurn = "BLUE";
 				}
 
@@ -174,7 +174,7 @@ public class GameScript : MonoBehaviour
 						SoundManagerScript.winAudioSource.Play ();
 					}
 					blueScreen.SetActive (true);
-					Debug.Log ("Blue Player WON");
+					this.Log ("Blue Player WON");
 					playerTurn = "YELLOW";
 				}
 
@@ -184,7 +184,7 @@ public class GameScript : MonoBehaviour
 						SoundManagerScript.winAudioSource.Play ();
 					}
 					yellowScreen.SetActive (true);
-					Debug.Log ("Yellow Player WON");
+					this.Log ("Yellow Player WON");
 					playerTurn = "RED";				
 				}
 				// If any 2 of 3 player wins============================================== 
@@ -199,7 +199,7 @@ public class GameScript : MonoBehaviour
 					redScreen.SetActive (true);
 					blueScreen.SetActive (true);
 					StartCoroutine ("GameCompletedRoutine");
-					Debug.Log ("GAME ENDED");	
+					this.Log ("GAME ENDED");	
 					playerTurn = "NONE";
 				}
 
@@ -214,7 +214,7 @@ public class GameScript : MonoBehaviour
 					yellowScreen.SetActive (true);
 					blueScreen.SetActive (true);
 					StartCoroutine ("GameCompletedRoutine");
-					Debug.Log ("GAME ENDED");	
+					this.Log ("GAME ENDED");	
 					playerTurn = "NONE";
 				}
 
@@ -229,7 +229,7 @@ public class GameScript : MonoBehaviour
 					redScreen.SetActive (true);
 					yellowScreen.SetActive (true);
 					StartCoroutine ("GameCompletedRoutine");
-					Debug.Log ("GAME ENDED");	
+					this.Log ("GAME ENDED");	
 					playerTurn = "NONE";
 				}
 				
@@ -244,7 +244,7 @@ public class GameScript : MonoBehaviour
 					}
 
 					redScreen.SetActive (true);					
-					Debug.Log ("Red Player WON");
+					this.Log ("Red Player WON");
 					playerTurn = "BLUE";
 				}
 
@@ -254,7 +254,7 @@ public class GameScript : MonoBehaviour
 						SoundManagerScript.winAudioSource.Play ();
 					}
 					blueScreen.SetActive (true);
-					Debug.Log ("Blue Player WON");
+					this.Log ("Blue Player WON");
 					playerTurn = "GREEN";
 				}
 
@@ -264,7 +264,7 @@ public class GameScript : MonoBehaviour
 						SoundManagerScript.winAudioSource.Play ();
 					}
 					greenScreen.SetActive (true);					
-					Debug.Log ("Green Player WON");
+					this.Log ("Green Player WON");
 					playerTurn = "YELLOW";
 				}
 
@@ -274,7 +274,7 @@ public class GameScript : MonoBehaviour
 						SoundManagerScript.winAudioSource.Play ();
 					}
 					yellowScreen.SetActive (true);					
-					Debug.Log ("Yellow Player WON");
+					this.Log ("Yellow Player WON");
 					playerTurn = "RED";				
 				}
 				// If any 2 of 4 player wins=======================================================================
@@ -288,7 +288,7 @@ public class GameScript : MonoBehaviour
 					}
 					redScreen.SetActive (true);
 					blueScreen.SetActive (true);
-					Debug.Log ("RED & BLUE - ALREADY WON");
+					this.Log ("RED & BLUE - ALREADY WON");
 					playerTurn = "GREEN";
 				}
 
@@ -302,7 +302,7 @@ public class GameScript : MonoBehaviour
 					}	
 					blueScreen.SetActive (true);
 					greenScreen.SetActive (true);
-					Debug.Log ("GREEN & BLUE - ALREADY WON");
+					this.Log ("GREEN & BLUE - ALREADY WON");
 					playerTurn = "YELLOW";
 				}
 
@@ -316,7 +316,7 @@ public class GameScript : MonoBehaviour
 					}
 					greenScreen.SetActive (true);
 					yellowScreen.SetActive (true);
-					Debug.Log ("GREEN & YELLOW - ALREADY WON");
+					this.Log ("GREEN & YELLOW - ALREADY WON");
 					playerTurn = "RED";
 				}
 
@@ -330,7 +330,7 @@ public class GameScript : MonoBehaviour
 					}
 					redScreen.SetActive (true);
 					yellowScreen.SetActive (true);
-					Debug.Log ("YELLOW & RED - ALREADY WON");	
+					this.Log ("YELLOW & RED - ALREADY WON");	
 					playerTurn = "BLUE";				
 				}
 
@@ -345,7 +345,7 @@ public class GameScript : MonoBehaviour
 					}
 					yellowScreen.SetActive (true);
 					blueScreen.SetActive (true);
-					Debug.Log ("BLUE & YELLOW - ALREADY WON");					
+					this.Log ("BLUE & YELLOW - ALREADY WON");					
 					
 					if (playerTurn == "BLUE") 
 					{
@@ -369,7 +369,7 @@ public class GameScript : MonoBehaviour
 					}
 					redScreen.SetActive (true);
 					greenScreen.SetActive (true);
-					Debug.Log ("RED & GREEN - ALREADY WON");					
+					this.Log ("RED & GREEN - ALREADY WON");					
 					
 					if (playerTurn == "RED") 
 					{
@@ -461,19 +461,19 @@ public class GameScript : MonoBehaviour
 		if (currentPlayerName.Contains ("RED PLAYER")) 
 		{
 			if (currentPlayerName == "RED PLAYER I") {
-				Debug.Log ("currentPlayerName = " + currentPlayerName);
+				this.Log ("currentPlayerName = " + currentPlayerName);
 				currentPlayer = RedPlayerI_Script.redPlayerI_ColName;
 			}
 			if (currentPlayerName == "RED PLAYER II") {
-				Debug.Log ("currentPlayerName = " + currentPlayerName);
+				this.Log ("currentPlayerName = " + currentPlayerName);
 				currentPlayer = RedPlayerII_Script.redPlayerII_ColName;
 			}
 			if (currentPlayerName == "RED PLAYER III") {
-				Debug.Log ("currentPlayerName = " + currentPlayerName);
+				this.Log ("currentPlayerName = " + currentPlayerName);
 				currentPlayer = RedPlayerIII_Script.redPlayerIII_ColName;
 			}
 			if (currentPlayerName == "RED PLAYER IV") {
-				Debug.Log ("currentPlayerName = " + currentPlayerName);
+				this.Log ("currentPlayerName = " + currentPlayerName);
 				currentPlayer = RedPlayerIV_Script.redPlayerIV_ColName;
 			}
 		}
@@ -493,19 +493,19 @@ public class GameScript : MonoBehaviour
 		if (currentPlayerName.Contains ("GREEN PLAYER")) 
 		{
 			if (currentPlayerName == "GREEN PLAYER I") {
-				Debug.Log ("currentPlayerName = " + currentPlayerName);
+				this.Log ("currentPlayerName = " + currentPlayerName);
 				currentPlayer = GreenPlayerI_Script.greenPlayerI_ColName;
 			}
 			if (currentPlayerName == "GREEN PLAYER II") {
-				Debug.Log ("currentPlayerName = " + currentPlayerName);
+				this.Log ("currentPlayerName = " + currentPlayerName);
 				currentPlayer = GreenPlayerII_Script.greenPlayerII_ColName;
 			}
 			if (currentPlayerName == "GREEN PLAYER III") {
-				Debug.Log ("currentPlayerName = " + currentPlayerName);
+				this.Log ("currentPlayerName = " + currentPlayerName);
 				currentPlayer = GreenPlayerIII_Script.greenPlayerIII_ColName;
 			}
 			if (currentPlayerName == "GREEN PLAYER IV") {
-				Debug.Log ("currentPlayerName = " + currentPlayerName);
+				this.Log ("currentPlayerName = " + currentPlayerName);
 				currentPlayer = GreenPlayerIV_Script.greenPlayerIV_ColName;
 			}
 		}
@@ -1136,16 +1136,19 @@ public class GameScript : MonoBehaviour
 			case 2:
 				if (playerTurn == "RED")
 				{
-
+					this.Log("Red turn");
 					object[] data =
 					{
 						PhotonNetwork.LocalPlayer,
 						playerTurn
 					};
-					Debug.Log("Event Red raise");
+					this.Log("Event Red raise");
 					PhotonController.instance.RaiseEvt(StaticData.RedPlayerTurn, data, ReceiverGroup.Others);
 					isRed = false;
-
+					if (!PhotonNetwork.IsMasterClient)
+					{
+						DiceRollButton.interactable = false;
+					}
 					diceRoll.position = redDiceRollPos.position;
 					frameRed.SetActive(true);
 					frameGreen.SetActive(false);
@@ -1160,7 +1163,11 @@ public class GameScript : MonoBehaviour
 						PhotonNetwork.LocalPlayer,
 						playerTurn
 					};
-					Debug.Log("Event Green raise");
+					if (PhotonNetwork.IsMasterClient)
+					{
+						DiceRollButton.interactable = false;
+					}
+					this.Log("Event Green raise");
 					PhotonController.instance.RaiseEvt(StaticData.GreenPlayerTurn, data, ReceiverGroup.Others);
 					diceRoll.position = greenDiceRollPos.position;
 					frameRed.SetActive(false);
@@ -1341,9 +1348,7 @@ public class GameScript : MonoBehaviour
 	{
 		SoundManagerScript.diceAudioSource.Play ();
 		DiceRollButton.interactable = false;
-
 		selectDiceNumAnimation = randomNo.Next (1,7);
-
 		switch (selectDiceNumAnimation) 
 		{
 			case 1:
@@ -1884,12 +1889,12 @@ public class GameScript : MonoBehaviour
 					iTween.MoveTo (redPlayerI, iTween.Hash ("position", redPlayer_Path [0], "speed", 125,"time",2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));
 				}
 				totalRedInHouse += 1;
-				Debug.Log ("Cool !!");
+				this.Log ("Cool !!");
 				RedPlayerI_Button.enabled = false;
 			}
 			else
 			{
-				Debug.Log ("You need "+  (redMovementBlocks.Count - redPlayerI_Steps).ToString() + " to enter into the house.");
+				this.Log ("You need "+  (redMovementBlocks.Count - redPlayerI_Steps).ToString() + " to enter into the house.");
 
 				if(redPlayerII_Steps + redPlayerIII_Steps + redPlayerIV_Steps == 0 && selectDiceNumAnimation != 6)
 				{
@@ -2016,12 +2021,12 @@ public class GameScript : MonoBehaviour
 				}
 
 				totalRedInHouse += 1;
-				Debug.Log ("Cool !!");
+				this.Log ("Cool !!");
 				RedPlayerII_Button.enabled = false;
 			}
 			else
 			{
-				Debug.Log ("You need "+  (redMovementBlocks.Count - redPlayerII_Steps).ToString() + " to enter into the house.");
+				this.Log ("You need "+  (redMovementBlocks.Count - redPlayerII_Steps).ToString() + " to enter into the house.");
 
 				if(redPlayerI_Steps + redPlayerIII_Steps + redPlayerIV_Steps == 0 && selectDiceNumAnimation != 6)
 				{
@@ -2144,12 +2149,12 @@ public class GameScript : MonoBehaviour
 				}
 
 				totalRedInHouse += 1;
-				Debug.Log ("Cool !!");
+				this.Log ("Cool !!");
 				RedPlayerIII_Button.enabled = false;
 			}
 			else
 			{
-				Debug.Log ("You need "+  (redMovementBlocks.Count - redPlayerIII_Steps).ToString() + " to enter into the house.");
+				this.Log ("You need "+  (redMovementBlocks.Count - redPlayerIII_Steps).ToString() + " to enter into the house.");
 
 				if(redPlayerI_Steps + redPlayerII_Steps + redPlayerIV_Steps == 0 && selectDiceNumAnimation != 6)
 				{
@@ -2274,12 +2279,12 @@ public class GameScript : MonoBehaviour
 				}
 
 				totalRedInHouse += 1;
-				Debug.Log ("Cool !!");
+				this.Log ("Cool !!");
 				RedPlayerIV_Button.enabled = false;
 			}
 			else
 			{
-				Debug.Log ("You need "+  (redMovementBlocks.Count - redPlayerIV_Steps).ToString() + " to enter into the house.");
+				this.Log ("You need "+  (redMovementBlocks.Count - redPlayerIV_Steps).ToString() + " to enter into the house.");
 
 				if(redPlayerI_Steps + redPlayerII_Steps + redPlayerIII_Steps == 0 && selectDiceNumAnimation != 6)
 				{
@@ -2405,12 +2410,12 @@ public class GameScript : MonoBehaviour
 				}
 
 				totalGreenInHouse += 1;
-				Debug.Log ("Cool !!");
+				this.Log ("Cool !!");
 				GreenPlayerI_Button.enabled = false;
 			} 
 			else 
 			{
-				Debug.Log ("You need " + (greenMovementBlocks.Count - greenPlayerI_Steps).ToString () + " to enter into the house.");
+				this.Log ("You need " + (greenMovementBlocks.Count - greenPlayerI_Steps).ToString () + " to enter into the house.");
 
 				if (greenPlayerII_Steps + greenPlayerIII_Steps + greenPlayerIV_Steps == 0 && selectDiceNumAnimation != 6) 
 				{
@@ -2535,12 +2540,12 @@ public class GameScript : MonoBehaviour
 				}
 
 				totalGreenInHouse += 1;
-				Debug.Log ("Cool !!");
+				this.Log ("Cool !!");
 				GreenPlayerII_Button.enabled = false;
 			} 
 			else 
 			{
-				Debug.Log ("You need " + (greenMovementBlocks.Count - greenPlayerII_Steps).ToString () + " to enter into the house.");
+				this.Log ("You need " + (greenMovementBlocks.Count - greenPlayerII_Steps).ToString () + " to enter into the house.");
 
 				if (greenPlayerI_Steps + greenPlayerIII_Steps + greenPlayerIV_Steps == 0 && selectDiceNumAnimation != 6) 
 				{
@@ -2665,12 +2670,12 @@ public class GameScript : MonoBehaviour
 				}
 
 				totalGreenInHouse += 1;
-				Debug.Log ("Cool !!");
+				this.Log ("Cool !!");
 				GreenPlayerIII_Button.enabled = false;
 			} 
 			else 
 			{
-				Debug.Log ("You need " + (greenMovementBlocks.Count - greenPlayerIII_Steps).ToString () + " to enter into the house.");
+				this.Log ("You need " + (greenMovementBlocks.Count - greenPlayerIII_Steps).ToString () + " to enter into the house.");
 
 				if (greenPlayerI_Steps + greenPlayerII_Steps + greenPlayerIV_Steps == 0 && selectDiceNumAnimation != 6) 
 				{
@@ -2795,12 +2800,12 @@ public class GameScript : MonoBehaviour
 				}
 
 				totalGreenInHouse += 1;
-				Debug.Log ("Cool !!");
+				this.Log ("Cool !!");
 				GreenPlayerIV_Button.enabled = false;
 			} 
 			else 
 			{
-				Debug.Log ("You need " + (greenMovementBlocks.Count - greenPlayerIV_Steps).ToString () + " to enter into the house.");
+				this.Log ("You need " + (greenMovementBlocks.Count - greenPlayerIV_Steps).ToString () + " to enter into the house.");
 
 				if (greenPlayerI_Steps + greenPlayerII_Steps + greenPlayerIII_Steps == 0 && selectDiceNumAnimation != 6) 
 				{
@@ -2925,12 +2930,12 @@ public class GameScript : MonoBehaviour
 				}
 
 				totalBlueInHouse += 1;
-				Debug.Log ("Cool !!");
+				this.Log ("Cool !!");
 				BluePlayerI_Button.enabled = false;
 			} 
 			else 
 			{
-				Debug.Log ("You need " + (blueMovementBlocks.Count - bluePlayerI_Steps).ToString () + " to enter into the house.");
+				this.Log ("You need " + (blueMovementBlocks.Count - bluePlayerI_Steps).ToString () + " to enter into the house.");
 
 				if (bluePlayerII_Steps + bluePlayerIII_Steps + bluePlayerIV_Steps == 0 && selectDiceNumAnimation != 6) 
 				{
@@ -3056,12 +3061,12 @@ public class GameScript : MonoBehaviour
 				}
 
 				totalBlueInHouse += 1;
-				Debug.Log ("Cool !!");
+				this.Log ("Cool !!");
 				BluePlayerII_Button.enabled = false;
 			} 
 			else 
 			{
-				Debug.Log ("You need " + (blueMovementBlocks.Count - bluePlayerII_Steps).ToString () + " to enter into the house.");
+				this.Log ("You need " + (blueMovementBlocks.Count - bluePlayerII_Steps).ToString () + " to enter into the house.");
 
 				if (bluePlayerI_Steps + bluePlayerIII_Steps + bluePlayerIV_Steps == 0 && selectDiceNumAnimation != 6) 
 				{
@@ -3186,12 +3191,12 @@ public class GameScript : MonoBehaviour
 				}
 
 				totalBlueInHouse += 1;
-				Debug.Log ("Cool !!");
+				this.Log ("Cool !!");
 				BluePlayerIII_Button.enabled = false;
 			} 
 			else 
 			{
-				Debug.Log ("You need " + (blueMovementBlocks.Count - bluePlayerIII_Steps).ToString () + " to enter into the house.");
+				this.Log ("You need " + (blueMovementBlocks.Count - bluePlayerIII_Steps).ToString () + " to enter into the house.");
 
 				if (bluePlayerI_Steps + bluePlayerII_Steps + bluePlayerIV_Steps == 0 && selectDiceNumAnimation != 6) 
 				{
@@ -3316,12 +3321,12 @@ public class GameScript : MonoBehaviour
 				}
 
 				totalBlueInHouse += 1;
-				Debug.Log ("Cool !!");
+				this.Log ("Cool !!");
 				BluePlayerIV_Button.enabled = false;
 			} 
 			else 
 			{
-				Debug.Log ("You need " + (blueMovementBlocks.Count - bluePlayerIV_Steps).ToString () + " to enter into the house.");
+				this.Log ("You need " + (blueMovementBlocks.Count - bluePlayerIV_Steps).ToString () + " to enter into the house.");
 
 				if (bluePlayerI_Steps + bluePlayerII_Steps + bluePlayerIII_Steps == 0 && selectDiceNumAnimation != 6) 
 				{
@@ -3448,12 +3453,12 @@ public class GameScript : MonoBehaviour
 				}
 
 				totalYellowInHouse += 1;
-				Debug.Log ("Cool !!");
+				this.Log ("Cool !!");
 				YellowPlayerI_Button.enabled = false;
 			} 
 			else 
 			{
-				Debug.Log ("You need " + (yellowMovementBlocks.Count - yellowPlayerI_Steps).ToString () + " to enter into the house.");
+				this.Log ("You need " + (yellowMovementBlocks.Count - yellowPlayerI_Steps).ToString () + " to enter into the house.");
 
 				if (yellowPlayerII_Steps + yellowPlayerIII_Steps + yellowPlayerIV_Steps == 0 && selectDiceNumAnimation != 6) 
 				{
@@ -3581,12 +3586,12 @@ public class GameScript : MonoBehaviour
 				}
 
 				totalYellowInHouse += 1;
-				Debug.Log ("Cool !!");
+				this.Log ("Cool !!");
 				YellowPlayerII_Button.enabled = false;
 			} 
 			else 
 			{
-				Debug.Log ("You need " + (yellowMovementBlocks.Count - yellowPlayerII_Steps).ToString () + " to enter into the house.");
+				this.Log ("You need " + (yellowMovementBlocks.Count - yellowPlayerII_Steps).ToString () + " to enter into the house.");
 
 				if (yellowPlayerI_Steps + yellowPlayerIII_Steps + yellowPlayerIV_Steps == 0 && selectDiceNumAnimation != 6) 
 				{
@@ -3712,12 +3717,12 @@ public class GameScript : MonoBehaviour
 				}
 
 				totalYellowInHouse += 1;
-				Debug.Log ("Cool !!");
+				this.Log ("Cool !!");
 				YellowPlayerIII_Button.enabled = false;
 			} 
 			else 
 			{
-				Debug.Log ("You need " + (yellowMovementBlocks.Count - yellowPlayerIII_Steps).ToString () + " to enter into the house.");
+				this.Log ("You need " + (yellowMovementBlocks.Count - yellowPlayerIII_Steps).ToString () + " to enter into the house.");
 
 				if (yellowPlayerI_Steps + yellowPlayerII_Steps + yellowPlayerIV_Steps == 0 && selectDiceNumAnimation != 6) 
 				{
@@ -3843,12 +3848,12 @@ public class GameScript : MonoBehaviour
 				}
 
 				totalYellowInHouse += 1;
-				Debug.Log ("Cool !!");
+				this.Log ("Cool !!");
 				YellowPlayerIV_Button.enabled = false;
 			} 
 			else 
 			{
-				Debug.Log ("You need " + (yellowMovementBlocks.Count - yellowPlayerIV_Steps).ToString () + " to enter into the house.");
+				this.Log ("You need " + (yellowMovementBlocks.Count - yellowPlayerIV_Steps).ToString () + " to enter into the house.");
 
 				if (yellowPlayerI_Steps + yellowPlayerII_Steps + yellowPlayerIII_Steps == 0 && selectDiceNumAnimation != 6) 
 				{
@@ -3957,7 +3962,11 @@ public class GameScript : MonoBehaviour
 		{
 			case 2:
 				playerTurn = "RED";
-
+				if (!PhotonNetwork.IsMasterClient)
+				{
+					DiceRollButton.interactable = false;
+				}
+				this.Log("Red trun");
 				frameRed.SetActive (true);
 				frameGreen.SetActive (false);
 				frameBlue.SetActive (false);

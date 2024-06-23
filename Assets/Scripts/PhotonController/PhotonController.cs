@@ -12,6 +12,8 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
 {
     public static PhotonController instance;
     
+   
+    
     [Space(5)] [Header("Connection Status")] 
     [SerializeField] private TMP_Text m_ConnectionStatus;
 
@@ -196,10 +198,9 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         
         if (photonEvent.Code == StaticData.GreenPlayerTurn)
         {
-            Debug.Log("Got it green");
             var receivedData = (object[])photonEvent.CustomData;
             var greenTurn = (string)receivedData[1];
-            this.LogColor("greenTurn " + greenTurn);
+            this.LogColor("Green Turn -->" + greenTurn);
             if (!PhotonNetwork.IsMasterClient)
             {
                 GameScript.instance.playerTurn = greenTurn;
@@ -209,14 +210,41 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         
         if (photonEvent.Code == StaticData.RedPlayerTurn)
         {
-            Debug.Log("Got it red");
             var receivedData = (object[])photonEvent.CustomData;
             var redTurn = (string)receivedData[1];
-            this.LogColor("redTurn " + redTurn);
+            this.LogColor("Red Turn --> " + redTurn);
             if (PhotonNetwork.IsMasterClient)
             {
                 GameScript.instance.playerTurn = redTurn;
                 GameScript.instance.InitializeDice();
+            }
+        } 
+        
+        if (photonEvent.Code == StaticData.RedPlayerActivated)
+        {
+            var receivedData = (object[])photonEvent.CustomData;
+            var diceValue = (int)receivedData[1];
+            this.LogColor("Red Activated --> ");
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                GameScript.instance.playerTurn = "RED";
+                GameScript.instance.selectDiceNumAnimation = diceValue;
+                GameScript.instance.redPlayerI_UI();
+            }
+        }  
+        
+        if (photonEvent.Code == StaticData.RedPlayerIChaal)
+        {
+            var receivedData = (object[])photonEvent.CustomData;
+            var diceValue = (int)receivedData[1];
+            var redPlayerI_Steps = (int)receivedData[2];
+            this.LogColor("Red chaal --> ");
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                GameScript.instance.playerTurn = "RED";
+                GameScript.instance.redPlayerI_Steps = redPlayerI_Steps;
+                GameScript.instance.selectDiceNumAnimation = diceValue;
+                GameScript.instance.redPlayerI_UI();
             }
         }  
     }

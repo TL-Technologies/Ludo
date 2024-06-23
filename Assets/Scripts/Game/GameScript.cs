@@ -12,6 +12,8 @@ public class GameScript : MonoBehaviour
 {
 	public static GameScript instance;
 
+	public GameMode mode;
+
 	private void Awake()
 	{
 		instance = this;
@@ -56,12 +58,12 @@ public class GameScript : MonoBehaviour
 	public GameObject bluePlayerI,bluePlayerII,bluePlayerIII,bluePlayerIV;
 	public GameObject yellowPlayerI,yellowPlayerII,yellowPlayerIII,yellowPlayerIV;
 
-	private int redPlayerI_Steps,redPlayerII_Steps,redPlayerIII_Steps,redPlayerIV_Steps;
-	private int greenPlayerI_Steps,greenPlayerII_Steps,greenPlayerIII_Steps,greenPlayerIV_Steps;
-	private int bluePlayerI_Steps,bluePlayerII_Steps,bluePlayerIII_Steps,bluePlayerIV_Steps;
-	private int yellowPlayerI_Steps,yellowPlayerII_Steps,yellowPlayerIII_Steps,yellowPlayerIV_Steps;
+	internal int redPlayerI_Steps,redPlayerII_Steps,redPlayerIII_Steps,redPlayerIV_Steps;
+	internal int greenPlayerI_Steps,greenPlayerII_Steps,greenPlayerIII_Steps,greenPlayerIV_Steps;
+	internal int bluePlayerI_Steps,bluePlayerII_Steps,bluePlayerIII_Steps,bluePlayerIV_Steps;
+	internal int yellowPlayerI_Steps,yellowPlayerII_Steps,yellowPlayerIII_Steps,yellowPlayerIV_Steps;
 	//selection of dice numbers animation...
-	private int selectDiceNumAnimation;
+	public int selectDiceNumAnimation;
 
 	//--------------- Dice Animations------
 	public GameObject dice1_Roll_Animation;
@@ -1136,19 +1138,24 @@ public class GameScript : MonoBehaviour
 			case 2:
 				if (playerTurn == "RED")
 				{
-					this.Log("Red turn");
-					object[] data =
+
+					if (mode.gameType == GameType.Multiplayer)
 					{
-						PhotonNetwork.LocalPlayer,
-						playerTurn
-					};
-					this.Log("Event Red raise");
-					PhotonController.instance.RaiseEvt(StaticData.RedPlayerTurn, data, ReceiverGroup.Others);
-					isRed = false;
-					if (!PhotonNetwork.IsMasterClient)
-					{
-						DiceRollButton.interactable = false;
+						this.Log("Red turn");
+						object[] data =
+						{
+							PhotonNetwork.LocalPlayer,
+							playerTurn
+						};
+						this.Log("Event Red raise");
+						PhotonController.instance.RaiseEvt(StaticData.RedPlayerTurn, data, ReceiverGroup.Others);
+						isRed = false;
+						if (!PhotonNetwork.IsMasterClient && mode.gameType == GameType.Multiplayer)
+						{
+							DiceRollButton.interactable = false;
+						}
 					}
+
 					diceRoll.position = redDiceRollPos.position;
 					frameRed.SetActive(true);
 					frameGreen.SetActive(false);
@@ -1158,17 +1165,22 @@ public class GameScript : MonoBehaviour
 
 				if (playerTurn == "GREEN")
 				{
-					object[] data =
+					if (mode.gameType == GameType.Multiplayer)
 					{
-						PhotonNetwork.LocalPlayer,
-						playerTurn
-					};
-					if (PhotonNetwork.IsMasterClient)
-					{
-						DiceRollButton.interactable = false;
+						object[] data =
+						{
+							PhotonNetwork.LocalPlayer,
+							playerTurn
+						};
+						if (PhotonNetwork.IsMasterClient && mode.gameType == GameType.Multiplayer)
+						{
+							DiceRollButton.interactable = false;
+						}
+
+						this.Log("Event Green raise");
+						PhotonController.instance.RaiseEvt(StaticData.GreenPlayerTurn, data, ReceiverGroup.Others);
 					}
-					this.Log("Event Green raise");
-					PhotonController.instance.RaiseEvt(StaticData.GreenPlayerTurn, data, ReceiverGroup.Others);
+
 					diceRoll.position = greenDiceRollPos.position;
 					frameRed.SetActive(false);
 					frameGreen.SetActive(true);
@@ -1349,6 +1361,7 @@ public class GameScript : MonoBehaviour
 		SoundManagerScript.diceAudioSource.Play ();
 		DiceRollButton.interactable = false;
 		selectDiceNumAnimation = randomNo.Next (1,7);
+		//selectDiceNumAnimation = 6;
 		switch (selectDiceNumAnimation) 
 		{
 			case 1:
@@ -1801,15 +1814,23 @@ public class GameScript : MonoBehaviour
 
 		if (playerTurn == "RED" && (redMovementBlocks.Count - redPlayerI_Steps) > selectDiceNumAnimation) // 4 > 4
 		{
+			Debug.Log("1");
 			if (redPlayerI_Steps > 0) 
 			{
+				Debug.Log("2" +redPlayerI_Steps );    // yha se jab khulne ke baad chance chalta hai tab aate hai
 				Vector3[] redPlayer_Path = new Vector3[selectDiceNumAnimation];
 
 				for (int i = 0; i < selectDiceNumAnimation; i++) 
 				{
 					redPlayer_Path [i] = redMovementBlocks [redPlayerI_Steps + i].transform.position;
 				}
-
+				object[] data =
+				{
+					PhotonNetwork.LocalPlayer,
+					selectDiceNumAnimation,
+					redPlayerI_Steps
+				};
+				PhotonController.instance.RaiseEvt(StaticData.RedPlayerIChaal,data,ReceiverGroup.Others);
 				redPlayerI_Steps += selectDiceNumAnimation;			
 
 				if (selectDiceNumAnimation == 6) 
@@ -1840,18 +1861,30 @@ public class GameScript : MonoBehaviour
 				//if(redPlayerI_Steps + selectDiceNumAnimation == redMovementBlocks.Count)
 				if (redPlayer_Path.Length > 1) 
 				{
+					Debug.Log("3");
 					//redPlayerI.transform.DOPath (redPlayer_Path, 2.0f, PathType.Linear, PathMode.Full3D, 10, Color.red);
 					iTween.MoveTo (redPlayerI, iTween.Hash ("path", redPlayer_Path, "speed", 125,"time",2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));
 				} 
 				else 
 				{
+					Debug.Log("4"); /// open hone ke baad pehli chaal chlta hai
 					iTween.MoveTo (redPlayerI, iTween.Hash ("position", redPlayer_Path [0], "speed", 125,"time",2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));
 				}
+
+				
 			} 
 			else 
 			{
+				Debug.Log("5"); // yha se player open hota hai
 				if (selectDiceNumAnimation == 6 && redPlayerI_Steps == 0) 
 				{
+					Debug.Log("6");
+					object[] data =
+					{
+						PhotonNetwork.LocalPlayer,
+						selectDiceNumAnimation
+					};
+					PhotonController.instance.RaiseEvt(StaticData.RedPlayerActivated, data,ReceiverGroup.Others);
 					Vector3[] redPlayer_Path = new Vector3[selectDiceNumAnimation];
 					redPlayer_Path [0] = redMovementBlocks [redPlayerI_Steps].transform.position;
 					redPlayerI_Steps += 1;
@@ -1864,9 +1897,11 @@ public class GameScript : MonoBehaviour
 		}
 		else
 		{
+			Debug.Log("7");
 			// Condition when Player Coin is reached successfully in House....(Actual Number of required moves to get into the House)
 			if (playerTurn == "RED" && (redMovementBlocks.Count - redPlayerI_Steps) == selectDiceNumAnimation) 
 			{
+				Debug.Log("8");
 				Vector3[] redPlayer_Path = new Vector3[selectDiceNumAnimation];
 
 				for (int i = 0; i < selectDiceNumAnimation; i++) 
@@ -1882,22 +1917,27 @@ public class GameScript : MonoBehaviour
 
 				if (redPlayer_Path.Length > 1) 
 				{
+					Debug.Log("8");
 					iTween.MoveTo (redPlayerI, iTween.Hash ("path", redPlayer_Path, "speed", 125,"time",2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));
 				} 
 				else 
 				{
+					Debug.Log("9");
 					iTween.MoveTo (redPlayerI, iTween.Hash ("position", redPlayer_Path [0], "speed", 125,"time",2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));
 				}
 				totalRedInHouse += 1;
 				this.Log ("Cool !!");
+				Debug.Log("Here");
 				RedPlayerI_Button.enabled = false;
 			}
 			else
 			{
+				Debug.Log("10");
 				this.Log ("You need "+  (redMovementBlocks.Count - redPlayerI_Steps).ToString() + " to enter into the house.");
 
 				if(redPlayerII_Steps + redPlayerIII_Steps + redPlayerIV_Steps == 0 && selectDiceNumAnimation != 6)
 				{
+					Debug.Log("11");
 					switch (MainMenuScript.howManyPlayers) 
 					{
 						case 2:
@@ -3881,19 +3921,28 @@ public class GameScript : MonoBehaviour
 
 	private void Start()
 	{
-		//StartNow();
-		startPlaying.onClick.AddListener(()=>
+
+		if (mode.gameType  == GameType.Single)
 		{
-			
 			StartNow();
-			
-			object[] data =
+			startPlayingPanel.SetActive(false);
+		}
+		else if (mode.gameType  == GameType.Multiplayer)
+		{
+			startPlayingPanel.SetActive(true);
+			startPlaying.onClick.AddListener(()=>
 			{
-				PhotonNetwork.LocalPlayer,
-			};
 			
-			PhotonController.instance.RaiseEvt(StaticData.GameStart, data, ReceiverGroup.Others);
-		});	
+				StartNow();
+			
+				object[] data =
+				{
+					PhotonNetwork.LocalPlayer,
+				};
+			
+				PhotonController.instance.RaiseEvt(StaticData.GameStart, data, ReceiverGroup.Others);
+			});	
+		}
 	}
 
 	internal void StartNow () 
@@ -3962,11 +4011,11 @@ public class GameScript : MonoBehaviour
 		{
 			case 2:
 				playerTurn = "RED";
-				if (!PhotonNetwork.IsMasterClient)
+				if (!PhotonNetwork.IsMasterClient && mode.gameType == GameType.Multiplayer)
 				{
 					DiceRollButton.interactable = false;
 				}
-				this.Log("Red trun");
+				Debug.Log("Red trun");
 				frameRed.SetActive (true);
 				frameGreen.SetActive (false);
 				frameBlue.SetActive (false);

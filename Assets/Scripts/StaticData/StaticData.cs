@@ -7,6 +7,9 @@ public static class StaticData
    public static byte GameStart = 46;
    public static byte GreenPlayerTurn = 43;
    public static byte RedPlayerTurn = 45;
+   public static byte RedPlayerActivated = 51;
+   public static byte GreenPlayerActivated = 52;
+   public static byte RedPlayerIChaal = 52;
    
    
    

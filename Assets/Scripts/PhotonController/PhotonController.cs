@@ -220,7 +220,7 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
             }
         } 
         
-        if (photonEvent.Code == StaticData.RedPlayerActivated)
+        if (photonEvent.Code == StaticData.RedPlayerIActivated)
         {
             var receivedData = (object[])photonEvent.CustomData;
             var diceValue = (int)receivedData[1];
@@ -230,6 +230,44 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
                 GameScript.instance.playerTurn = "RED";
                 GameScript.instance.selectDiceNumAnimation = diceValue;
                 GameScript.instance.redPlayerI_UI();
+            }
+        } 
+        if (photonEvent.Code == StaticData.RedPlayerIIActivated)
+        {
+            var receivedData = (object[])photonEvent.CustomData;
+            var diceValue = (int)receivedData[1];
+            this.LogColor("Red Activated II --> ");
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                GameScript.instance.playerTurn = "RED";
+                GameScript.instance.selectDiceNumAnimation = diceValue;
+                GameScript.instance.redPlayerII_UI();
+            }
+        }  
+        
+        if (photonEvent.Code == StaticData.RedPlayerIIIActivated)
+        {
+            var receivedData = (object[])photonEvent.CustomData;
+            var diceValue = (int)receivedData[1];
+            this.LogColor("Red Activated III --> ");
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                GameScript.instance.playerTurn = "RED";
+                GameScript.instance.selectDiceNumAnimation = diceValue;
+                GameScript.instance.redPlayerIII_UI();
+            }
+        }   
+        
+        if (photonEvent.Code == StaticData.RedPlayerIVActivated)
+        {
+            var receivedData = (object[])photonEvent.CustomData;
+            var diceValue = (int)receivedData[1];
+            this.LogColor("Red Activated IV --> ");
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                GameScript.instance.playerTurn = "RED";
+                GameScript.instance.selectDiceNumAnimation = diceValue;
+                GameScript.instance.redPlayerIV_UI();
             }
         }  
         
@@ -245,6 +283,48 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
                 GameScript.instance.redPlayerI_Steps = redPlayerI_Steps;
                 GameScript.instance.selectDiceNumAnimation = diceValue;
                 GameScript.instance.redPlayerI_UI();
+            }
+        } 
+        if (photonEvent.Code == StaticData.RedPlayerIIChaal)
+        {
+            var receivedData = (object[])photonEvent.CustomData;
+            var diceValue = (int)receivedData[1];
+            var redPlayerII_Steps = (int)receivedData[2];
+            this.LogColor("Red chaal II--> ");
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                GameScript.instance.playerTurn = "RED";
+                GameScript.instance.redPlayerI_Steps = redPlayerII_Steps;
+                GameScript.instance.selectDiceNumAnimation = diceValue;
+                GameScript.instance.redPlayerII_UI();
+            }
+        } 
+        if (photonEvent.Code == StaticData.RedPlayerIIIChaal)
+        {
+            var receivedData = (object[])photonEvent.CustomData;
+            var diceValue = (int)receivedData[1];
+            var redPlayerIII_Steps = (int)receivedData[2];
+            this.LogColor("Red chaal III--> ");
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                GameScript.instance.playerTurn = "RED";
+                GameScript.instance.redPlayerI_Steps = redPlayerIII_Steps;
+                GameScript.instance.selectDiceNumAnimation = diceValue;
+                GameScript.instance.redPlayerIII_UI();
+            }
+        } 
+        if (photonEvent.Code == StaticData.RedPlayerIVChaal)
+        {
+            var receivedData = (object[])photonEvent.CustomData;
+            var diceValue = (int)receivedData[1];
+            var redPlayerIV_Steps = (int)receivedData[2];
+            this.LogColor("Red chaal IV--> ");
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                GameScript.instance.playerTurn = "RED";
+                GameScript.instance.redPlayerI_Steps = redPlayerIV_Steps;
+                GameScript.instance.selectDiceNumAnimation = diceValue;
+                GameScript.instance.redPlayerIV_UI();
             }
         }  
     }

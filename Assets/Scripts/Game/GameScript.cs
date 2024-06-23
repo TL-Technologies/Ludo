@@ -1884,7 +1884,7 @@ public class GameScript : MonoBehaviour
 						PhotonNetwork.LocalPlayer,
 						selectDiceNumAnimation
 					};
-					PhotonController.instance.RaiseEvt(StaticData.RedPlayerActivated, data,ReceiverGroup.Others);
+					PhotonController.instance.RaiseEvt(StaticData.RedPlayerIActivated, data,ReceiverGroup.Others);
 					Vector3[] redPlayer_Path = new Vector3[selectDiceNumAnimation];
 					redPlayer_Path [0] = redMovementBlocks [redPlayerI_Steps].transform.position;
 					redPlayerI_Steps += 1;
@@ -1981,7 +1981,13 @@ public class GameScript : MonoBehaviour
 				{
 					redPlayer_Path [i] = redMovementBlocks [redPlayerII_Steps + i].transform.position;
 				}
-
+				object[] data =
+				{
+					PhotonNetwork.LocalPlayer,
+					selectDiceNumAnimation,
+					redPlayerII_Steps
+				};
+				PhotonController.instance.RaiseEvt(StaticData.RedPlayerIIChaal,data,ReceiverGroup.Others);
 				redPlayerII_Steps += selectDiceNumAnimation;
 
 				if (selectDiceNumAnimation == 6) 
@@ -2030,7 +2036,15 @@ public class GameScript : MonoBehaviour
 					//currentPlayer = RedPlayerII_Script.redPlayerII_ColName;
 					currentPlayerName = "RED PLAYER II";
 					iTween.MoveTo (redPlayerII, iTween.Hash ("position", redPlayer_Path [0], "speed", 125,"time",2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));
+					object[] data =
+					{
+						PhotonNetwork.LocalPlayer,
+						selectDiceNumAnimation
+					};
+					PhotonController.instance.RaiseEvt(StaticData.RedPlayerIIActivated, data,ReceiverGroup.Others);
 				}
+				
+				
 			}
 		}
 		else
@@ -2113,7 +2127,13 @@ public class GameScript : MonoBehaviour
 				{
 					redPlayer_Path [i] = redMovementBlocks [redPlayerIII_Steps + i].transform.position;
 				}
-
+				object[] data =
+				{
+					PhotonNetwork.LocalPlayer,
+					selectDiceNumAnimation,
+					redPlayerIII_Steps
+				};
+				PhotonController.instance.RaiseEvt(StaticData.RedPlayerIIIChaal,data,ReceiverGroup.Others);
 				redPlayerIII_Steps += selectDiceNumAnimation;
 
 				if (selectDiceNumAnimation == 6) 
@@ -2158,6 +2178,12 @@ public class GameScript : MonoBehaviour
 					playerTurn = "RED";
 					currentPlayerName = "RED PLAYER III";
 					iTween.MoveTo (redPlayerIII, iTween.Hash ("position", redPlayer_Path [0], "speed", 125,"time",2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));
+					object[] data =
+					{
+						PhotonNetwork.LocalPlayer,
+						selectDiceNumAnimation
+					};
+					PhotonController.instance.RaiseEvt(StaticData.RedPlayerIIIActivated, data,ReceiverGroup.Others);
 				}
 			}
 		}
@@ -2241,7 +2267,13 @@ public class GameScript : MonoBehaviour
 				{
 					redPlayer_Path [i] = redMovementBlocks [redPlayerIV_Steps + i].transform.position;
 				}
-
+				object[] data =
+				{
+					PhotonNetwork.LocalPlayer,
+					selectDiceNumAnimation,
+					redPlayerIV_Steps
+				};
+				PhotonController.instance.RaiseEvt(StaticData.RedPlayerIVChaal,data,ReceiverGroup.Others);
 				redPlayerIV_Steps += selectDiceNumAnimation;
 
 				if (selectDiceNumAnimation == 6) 
@@ -2288,6 +2320,12 @@ public class GameScript : MonoBehaviour
 					playerTurn = "RED";
 					currentPlayerName = "RED PLAYER IV";
 					iTween.MoveTo (redPlayerIV, iTween.Hash ("position", redPlayer_Path [0], "speed", 125,"time",2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));
+					object[] data =
+					{
+						PhotonNetwork.LocalPlayer,
+						selectDiceNumAnimation
+					};
+					PhotonController.instance.RaiseEvt(StaticData.RedPlayerIVActivated, data,ReceiverGroup.Others);
 				}
 			}
 		}

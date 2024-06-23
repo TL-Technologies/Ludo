@@ -9,6 +9,9 @@ public class GameContext : EditorWindow
     {
         var data = Resources.Load("GameMode") as GameMode;
         data.SinglePlayer();
+        EditorUtility.SetDirty(data);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
     }
     
     [MenuItem("Game Mode / Multi Player")]
@@ -16,5 +19,11 @@ public class GameContext : EditorWindow
     {
         var data = Resources.Load("GameMode") as GameMode;
         data.MultiPlayer();
+          EditorUtility.SetDirty(data);
+          AssetDatabase.SaveAssets();
+          AssetDatabase.Refresh();
     }
+    
+    
+
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Pun.Demo.PunBasics;
 using Photon.Realtime;
+using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +14,7 @@ public class GameScript : MonoBehaviour
 	public static GameScript instance;
 
 	public GameMode mode;
+	public TMP_Text roomcode;
 
 	private void Awake()
 	{
@@ -4009,7 +4011,7 @@ public class GameScript : MonoBehaviour
 
 	private void Start()
 	{
-
+		roomcode.text = "Room Code :--> " + PhotonController.instance.roomName;
 		if (mode.gameType  == GameType.Single)
 		{
 			StartNow();

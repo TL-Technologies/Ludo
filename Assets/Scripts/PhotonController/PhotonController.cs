@@ -19,7 +19,7 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
 
     [Space(10)][Header("Variables")]
     [SerializeField] internal bool showLogs;
-    [SerializeField] private string roomName;
+    [SerializeField] internal string roomName;
     
     [Space(10)][Header("Start Page data")]
     [SerializeField] private GameObject startPage;

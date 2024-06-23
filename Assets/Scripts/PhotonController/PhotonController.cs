@@ -16,6 +16,7 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
     
     [Space(5)] [Header("Connection Status")] 
     [SerializeField] private TMP_Text m_ConnectionStatus;
+    [SerializeField] private GameObject waitMessage;
 
     [Space(10)][Header("Variables")]
     [SerializeField] internal bool showLogs;
@@ -114,6 +115,7 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         this.Log("Connected To Master");
         CheckMasterClient();
         next.interactable = true;
+        waitMessage.gameObject.SetActive(false);
     }
 
     public override void OnJoinedLobby()

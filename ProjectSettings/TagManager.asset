@@ -41,3 +41,45 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Board
+    uniqueID: 131653361
+    locked: 0
+  - name: PlayerNormal
+    uniqueID: 3479841739
+    locked: 0
+  - name: Player1
+    uniqueID: 3473373641
+    locked: 0
+  - name: Player2
+    uniqueID: 3246421529
+    locked: 0
+  - name: Player3
+    uniqueID: 1255501981
+    locked: 0
+  - name: Player4
+    uniqueID: 3489240259
+    locked: 0
+  - name: Player5
+    uniqueID: 2472173087
+    locked: 0
+  - name: Player6
+    uniqueID: 1966479673
+    locked: 0
+  - name: Player7
+    uniqueID: 3972693051
+    locked: 0
+  - name: Player8
+    uniqueID: 3277008509
+    locked: 0
+  - name: Player9
+    uniqueID: 3385207191
+    locked: 0
+  - name: Moving
+    uniqueID: 1667771861
+    locked: 0
+  - name: Highlighted
+    uniqueID: 800048369
+    locked: 0
+  - name: GameUI
+    uniqueID: 4094715795
+    locked: 0

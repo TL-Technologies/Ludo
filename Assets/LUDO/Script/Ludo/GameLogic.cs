@@ -201,6 +201,7 @@ public class GameLogic : MonoBehaviour
 
 	IEnumerator Move(int player_id, int piece_id, int rolledDiceFaceCount)
 	{
+		Debug.Log("Move Piece --> " + player_id + " , " + piece_id + " , " + rolledDiceFaceCount);
 		if (currentPlayerPieces[player_id][piece_id].GetComponentInChildren<GamePiece>().currentIndex != -1)
 		{
 			int currentMoveIndexStart = currentPlayerPieces[player_id][piece_id].GetComponentInChildren<GamePiece>().currentIndex + 1;

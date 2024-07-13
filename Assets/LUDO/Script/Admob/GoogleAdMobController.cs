@@ -6,12 +6,12 @@ using System;
 public class GoogleAdMobController : MonoBehaviour
 {
     //AdMob ad ids
-#if UNITY_ANDROID || UNITY_EDITOR|| UNITY_WEBGL
+#if UNITY_ANDROID || UNITY_EDITOR|| UNITY_WEBGL|| UNITY_STANDALONE_WIN
 
     public string ADMOB_BANNER_ID;
     public string ADMOB_INTERSTITITIAL_ID;
 
-#elif UNITY_IPHONE || UNITY_EDITOR || UNITY_WEBGL
+#elif UNITY_IPHONE || UNITY_EDITOR || UNITY_WEBGL || UNITY_STANDALONE_WIN
 
     public string ADMOB_BANNER_ID;
     public string ADMOB_INTERSTITITIAL_ID;

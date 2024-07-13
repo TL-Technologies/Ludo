@@ -26,7 +26,7 @@ public class GamePiece : MonoBehaviour
 
 	private void OnMouseDown()
 	{
-		//Debug.Log("I AM CLICKED => " + gameObject.name + playerID + "," + pieceID);
+		Debug.Log("Piece => " + gameObject.name + playerID + " , " + pieceID);
 		GameLogicRef.MovePiece(playerID, pieceID);
 	}
 

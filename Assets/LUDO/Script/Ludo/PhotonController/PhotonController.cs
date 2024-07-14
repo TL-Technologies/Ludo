@@ -95,6 +95,11 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         Debug.Log("Total Players -->" + PhotonNetwork.PlayerList.Length.ToString());
     }
 
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        Debug.Log(message);
+    }
+
     public void OnEvent(EventData photonEvent)
     {
     }

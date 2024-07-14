@@ -88,7 +88,6 @@ public class GameBoardSetup : MonoBehaviour
 		currentGameTheme = _gameTheme;
 
 		InitializeGameTheme();
-
 		PieceColorSetup();
 	}
 

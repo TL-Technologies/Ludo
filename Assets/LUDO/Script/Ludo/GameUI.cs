@@ -212,7 +212,7 @@ public class GameUI : MonoBehaviour
         {
             Debug.Log("data set as NON MasterClient");
             selectedGameType = GameType.Local;
-            selectedUserColor = PlayerColor.Yellow;
+            selectedUserColor = PlayerColor.Green;
             selectedPlayerCount = PlayerCount.Two;
             selectedGameTheme = GameTheme.Dark;
         }
@@ -227,9 +227,6 @@ public class GameUI : MonoBehaviour
             };
             PhotonController.instance.RaiseEvt(StaticData.GAME_START, data, ReceiverGroup.Others);
         }
-        
-        //FirebaseManager.instance.SendCustomAnalyticsEvent(selectedGameTheme.ToString()+"_"+ selectedGameType.ToString() + "_" + selectedPlayerCount.ToString() + "_" + selectedUserColor.ToString());
-        //AdManager.instance.ShowInterstitial();
     }
 
     public void OnClickHomeFromGameplay()

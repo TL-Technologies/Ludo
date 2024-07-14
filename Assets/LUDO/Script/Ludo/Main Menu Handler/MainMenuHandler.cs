@@ -14,6 +14,7 @@ public class MainMenuHandler : MonoBehaviour
     [SerializeField] internal GameObject mainMenu;
     [SerializeField] internal GameObject createJoinRoomPanel;
     [SerializeField] internal GameObject JoinRoomWithCodePanel;
+    [SerializeField] internal GameObject waitingPanel;
 
     [Space(10)]
     [Header("Input and  Button")]
@@ -23,6 +24,7 @@ public class MainMenuHandler : MonoBehaviour
     [SerializeField] internal Button createRoomButton;
     [SerializeField] internal Button joinRoomWithCodeButton;
     [SerializeField] internal Button joinRoomButton;
+    [SerializeField] internal Button startGameButton;
 
 
     private void Awake()
@@ -72,7 +74,7 @@ public class MainMenuHandler : MonoBehaviour
     {
         PhotonController.instance.CreateRoom();
         createJoinRoomPanel.SetActive(false);
-        mainMenu.SetActive(true);
+        waitingPanel.SetActive(true);
 
     }
 
@@ -85,7 +87,7 @@ public class MainMenuHandler : MonoBehaviour
         Debug.Log("Hello");
         PhotonController.instance.JoinRoom(roomid.text);
         JoinRoomWithCodePanel.SetActive(false);
-        mainMenu.SetActive(true);
+        waitingPanel.SetActive(true);
     }
 
     internal void SetNextButtonInteractable(bool state)

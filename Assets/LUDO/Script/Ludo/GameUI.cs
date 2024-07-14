@@ -1,3 +1,5 @@
+using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -89,7 +91,7 @@ public class GameUI : MonoBehaviour
         currentColors = brightColors;
     }
 
-    void DisableAllWinElements()
+    internal void DisableAllWinElements()
     {
         for (int i = 0; i < winElements.Length; i++)
         {
@@ -192,12 +194,40 @@ public class GameUI : MonoBehaviour
     {
         ShowScreen(gameplayBoard);
         ShowScreen(gameplayScreen);
-        HideScreen(mainSelectionScreenPanel);
+        HideScreen(MainMenuHandler.instance.waitingPanel);
         HideScreen(gameOverScreenPanel);
         StopMainScreenAnimations();
         DisableAllWinElements();
 
+        #region Multiplayer
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Debug.Log("data set as MasterClient");
+            selectedGameType = GameType.Local;
+            selectedUserColor = PlayerColor.Red;
+            selectedPlayerCount = PlayerCount.Two;
+            selectedGameTheme = GameTheme.Dark;
+        }
+        else
+        {
+            Debug.Log("data set as NON MasterClient");
+            selectedGameType = GameType.Local;
+            selectedUserColor = PlayerColor.Yellow;
+            selectedPlayerCount = PlayerCount.Two;
+            selectedGameTheme = GameTheme.Dark;
+        }
+        #endregion
+
         GameBoardSetupRef.SetupGameBoard(selectedUserColor, selectedGameType, selectedPlayerCount, selectedGameTheme);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            object[] data =
+            {
+                PhotonNetwork.LocalPlayer,
+            };
+            PhotonController.instance.RaiseEvt(StaticData.GAME_START, data, ReceiverGroup.Others);
+        }
+        
         //FirebaseManager.instance.SendCustomAnalyticsEvent(selectedGameTheme.ToString()+"_"+ selectedGameType.ToString() + "_" + selectedPlayerCount.ToString() + "_" + selectedUserColor.ToString());
         //AdManager.instance.ShowInterstitial();
     }
@@ -327,13 +357,13 @@ public class GameUI : MonoBehaviour
         });
     }
 
-    void PlayMainScreenAnimations()
+    internal void PlayMainScreenAnimations()
     {
         StartPlayButtonTween();
         StartPlayButtonBkTween();
     }
 
-    void StopMainScreenAnimations()
+    internal void StopMainScreenAnimations()
     {
         LeanTween.cancelAll();
 

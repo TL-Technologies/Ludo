@@ -11848,6 +11848,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameUI: {fileID: 585735498}
+  gameLogic: {fileID: 1035207844}
   _ConnectionStatus: {fileID: 132939782}
   waitMessage: {fileID: 2040846193}
   roomId: 

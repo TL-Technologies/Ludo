@@ -12,8 +12,9 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
     public static PhotonController instance;
 
     [Space(5)]
-    [Header("Game UI")]
+    [Header("Game UI And Game Logic")]
     [SerializeField] GameUI gameUI;
+    [SerializeField] GameLogic gameLogic;
 
 
     [Space(5)]
@@ -79,6 +80,26 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
     internal void DisableBottomMessage()
     {
         waitMessage.text = " ";
+    }
+
+    internal void RedlayerDice(int diceId)
+    {
+        object[] data =
+        {
+          PhotonNetwork.LocalPlayer,
+          diceId
+        };
+        PhotonController.instance.RaiseEvt(StaticData.RED_DICE, data, ReceiverGroup.Others);
+    } 
+    
+    internal void GreenlayerDice(int diceId)
+    {
+        object[] data =
+        {
+          PhotonNetwork.LocalPlayer,
+          diceId
+        };
+        PhotonController.instance.RaiseEvt(StaticData.GREEN_DICE, data, ReceiverGroup.Others);
     }
 
     #endregion
@@ -156,6 +177,20 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
 
             case StaticData.GAME_START:
                 gameUI.OnClickPlay();
+                break;
+
+            case StaticData.RED_DICE:
+                object[] redDiceData = (object[])photonEvent.CustomData;
+                int redDiceId = (int)redDiceData[1];
+                Debug.Log("Red Dice Id Received --> " + redDiceId);
+                gameLogic.GenerateDiceCount(redDiceId + 1);
+                break
+                    
+            ;case StaticData.GREEN_DICE:
+                object[] greenDiceData = (object[])photonEvent.CustomData;
+                int greenDiceId = (int)greenDiceData[1];
+                Debug.Log("Green Dice Id Received --> " + greenDiceId);
+                gameLogic.GenerateDiceCount(greenDiceId - 1);
                 break;
 
             default: 

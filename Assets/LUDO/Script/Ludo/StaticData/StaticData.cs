@@ -11,6 +11,8 @@ public static class StaticData {
 
     public const byte PLAYER_JOINED = 41;
     public const byte GAME_START = 42;
+    public const byte RED_DICE = 43;
+    public const byte GREEN_DICE = 44;
 
     #endregion
 

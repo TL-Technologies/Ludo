@@ -32,7 +32,7 @@ public class GameLogic : MonoBehaviour
 	List<int> globalSafePositionindexlist = new List<int> { 0, 8, 13, 21, 26, 34, 39, 47 };
 
 	int CURRENT_PLAYER_COUNT;
-	int TURN_INDEX = 0;
+	public int TURN_INDEX = 0;
 	int CURRENT_DICE_COUNT = 0;
 	bool isApplicableForSequentialTurn = false;
 
@@ -511,7 +511,7 @@ public class GameLogic : MonoBehaviour
 
 	public void FindMovablePiece(int _playerID, int _currentRolledDice)
 	{
-		//Debug.Log("DICE =>" + _currentRolledDice);
+		Debug.Log("DICE =>" + _playerID + " " + _currentRolledDice);
 
 		GameObject[] movablePieces = globalPieces.Where(currentPiece => currentPiece.GetComponentInChildren<GamePiece>().playerID == _playerID && currentPiece.GetComponentInChildren<GamePiece>().IsMovable(_currentRolledDice)).ToArray();
 

@@ -17,8 +17,8 @@ public class MainMenuHandler : MonoBehaviour
 
     [Space(10)]
     [Header("Input and  Button")]
-    [SerializeField] internal TMP_InputField _name;
-    [SerializeField] internal TMP_InputField roomid;
+    [SerializeField] internal InputField _name;
+    [SerializeField] internal InputField roomid;
     [SerializeField] internal Button _nextButton;
     [SerializeField] internal Button createRoomButton;
     [SerializeField] internal Button joinRoomWithCodeButton;

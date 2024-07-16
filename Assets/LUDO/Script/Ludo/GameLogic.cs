@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using System.Linq;
+using Photon.Pun;
 
 public class GameLogic : MonoBehaviour
 {
@@ -672,6 +673,11 @@ public class GameLogic : MonoBehaviour
 			currentGameDice[i].GetComponent<GameDice>().DisableCollider();
 		}
 	}
+	
+	void DisableClickOfDice(int id)
+	{
+			currentGameDice[id].GetComponent<GameDice>().DisableCollider();
+	}
 
 	void EnableClickOfDice(int diceid)
 	{
@@ -704,7 +710,7 @@ public class GameLogic : MonoBehaviour
 		}
 	}
 
-	IEnumerator ChangeTurn()
+	internal IEnumerator ChangeTurn()
 	{
 		//Debug.Log("CHANGE TURN ");
 
@@ -725,11 +731,13 @@ public class GameLogic : MonoBehaviour
 				if (TURN_INDEX == 0)
 				{
 					TURN_INDEX = 1;
+					Debug.Log("Turn Changed to 1");
 				}
 				else
 				{
 					TURN_INDEX = 0;
-				}
+                    Debug.Log("Turn Changed to 0");
+                }
 			}
 			else
 			{
@@ -737,8 +745,21 @@ public class GameLogic : MonoBehaviour
 			}
 		}
 
+
 		EnableClickOfDice(TURN_INDEX);
-		//Debug.Log("NEW TURN =>" + TURN_INDEX);
+
+		if (PhotonNetwork.IsMasterClient && TURN_INDEX == 1)
+		{
+			Debug.Log("Disable dice for master");	
+            DisableClickOfDice(1);
+		}
+
+		if (!PhotonNetwork.IsMasterClient && TURN_INDEX == 0 )
+		{
+            Debug.Log("Disable dice for normal");
+            DisableClickOfDice(0);
+        }
+		Debug.Log("NEW TURN =>" + TURN_INDEX);
 
 		//Automatic dice roll for bot
 		//if (TURN_INDEX != 0 && currentGameType == GameType.WithBot)

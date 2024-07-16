@@ -15,6 +15,7 @@ public static class StaticData {
     public const byte GREEN_DICE = 44;
     public const byte MOVE_RED = 45;
     public const byte MOVE_GREEN = 46;
+    public const byte PLAYER_KILL = 47;
 
     #endregion
 

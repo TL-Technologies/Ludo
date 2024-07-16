@@ -265,7 +265,7 @@ public class GameUI : MonoBehaviour
         HideScreen(gameplayScreen);
         HideScreen(gameOverScreenPanel);
 
-        ShowScreen(mainSelectionScreenPanel);
+        ShowScreen(MainMenuHandler.instance.createJoinRoomPanel);
         PlayMainScreenAnimations();
     }
 

@@ -108,7 +108,11 @@ public class GameLogic : MonoBehaviour
 		FillGlobalPieceList();
 
 		DisableClickOfAllDice();
-		EnableClickOfDice(TURN_INDEX);
+        if (PhotonNetwork.IsMasterClient == false)
+        {
+            TURN_INDEX += 1;
+        }
+        EnableClickOfDice(TURN_INDEX);
 		currentGameDice[TURN_INDEX].GetComponent<GameDice>().PlayTapDiceTween();
 
 	}

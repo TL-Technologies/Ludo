@@ -28,6 +28,14 @@ public class GamePiece : MonoBehaviour
 	{
 		Debug.Log("Piece => " + gameObject.name + playerID + " , " + pieceID);
 		GameLogicRef.MovePiece(playerID, pieceID);
+		if (playerID == 0)
+		{
+			PhotonController.instance.MoveRed(playerID,pieceID);
+		}
+		else
+		{
+            PhotonController.instance.MoveGreen(playerID, pieceID);
+        }
 	}
 
 	public bool IsMovable(int diceCount)

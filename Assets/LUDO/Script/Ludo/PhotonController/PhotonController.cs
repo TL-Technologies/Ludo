@@ -89,7 +89,7 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
           PhotonNetwork.LocalPlayer,
           diceId
         };
-        PhotonController.instance.RaiseEvt(StaticData.RED_DICE, data, ReceiverGroup.Others);
+        RaiseEvt(StaticData.RED_DICE, data, ReceiverGroup.Others);
     } 
     
     internal void GreenlayerDice(int diceId)
@@ -99,7 +99,27 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
           PhotonNetwork.LocalPlayer,
           diceId
         };
-        PhotonController.instance.RaiseEvt(StaticData.GREEN_DICE, data, ReceiverGroup.Others);
+        RaiseEvt(StaticData.GREEN_DICE, data, ReceiverGroup.Others);
+    }
+
+    internal void MoveRed(int playerID,int pieceID)
+    {
+        object[] data =
+        {
+          playerID,
+          pieceID
+        };
+        RaiseEvt(StaticData.MOVE_RED, data, ReceiverGroup.Others);
+    } 
+    
+    internal void MoveGreen(int playerID,int pieceID)
+    {
+        object[] data =
+        {
+          playerID,
+          pieceID
+        };
+        RaiseEvt(StaticData.MOVE_GREEN, data, ReceiverGroup.Others);
     }
 
     #endregion
@@ -179,18 +199,35 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
                 gameUI.OnClickPlay();
                 break;
 
+
             case StaticData.RED_DICE:
                 object[] redDiceData = (object[])photonEvent.CustomData;
                 int redDiceId = (int)redDiceData[1];
                 Debug.Log("Red Dice Id Received --> " + redDiceId);
                 gameLogic.GenerateDiceCount(redDiceId + 1);
-                break
+                break;
                     
-            ;case StaticData.GREEN_DICE:
+            case StaticData.GREEN_DICE:
                 object[] greenDiceData = (object[])photonEvent.CustomData;
                 int greenDiceId = (int)greenDiceData[1];
                 Debug.Log("Green Dice Id Received --> " + greenDiceId);
                 gameLogic.GenerateDiceCount(greenDiceId - 1);
+                break;
+            
+            case StaticData.MOVE_RED:
+                object[] moveRedData = (object[])photonEvent.CustomData;
+                int redPlayerId = (int)moveRedData[0];
+                int redPieceId = (int)moveRedData[1];
+                Debug.Log($"Moving data Red --> PlayerId --> {redPlayerId} ---> PieceId --> {redPieceId} "  );
+                gameLogic.MovePiece(redPlayerId + 1 , redPieceId);
+                break;
+
+            case StaticData.MOVE_GREEN:
+                object[] moveGreenData = (object[])photonEvent.CustomData;
+                int greenPlayerId = (int)moveGreenData[0];
+                int greenPieceId = (int)moveGreenData[1];
+                Debug.Log($"Moving data green --> PlayerId --> {greenPlayerId} ---> PieceId --> {greenPieceId} "  );
+                gameLogic.MovePiece(greenPlayerId - 1 , greenPieceId);
                 break;
 
             default: 

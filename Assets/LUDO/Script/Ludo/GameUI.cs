@@ -219,6 +219,7 @@ public class GameUI : MonoBehaviour
         #endregion
 
         GameBoardSetupRef.SetupGameBoard(selectedUserColor, selectedGameType, selectedPlayerCount, selectedGameTheme);
+
         if (PhotonNetwork.IsMasterClient)
         {
             object[] data =

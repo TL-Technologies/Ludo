@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using Photon.Pun;
 
 [System.Serializable]
 public class CustomVector
@@ -89,6 +90,10 @@ public class GameBoardSetup : MonoBehaviour
 
 		InitializeGameTheme();
 		PieceColorSetup();
+		if (PhotonNetwork.IsMasterClient == false)
+		{
+			GameLogicRef.DisableClickOfAllDice();
+		}
 	}
 
 	void InitializeGameDice()

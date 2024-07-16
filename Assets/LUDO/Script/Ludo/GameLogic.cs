@@ -720,7 +720,7 @@ public class GameLogic : MonoBehaviour
 		}
 	}
 
-	void DisableClickOfAllDice()
+	internal void DisableClickOfAllDice()
 	{
 		for (int i = 0; i < currentGameDice.Length; i++)
 		{

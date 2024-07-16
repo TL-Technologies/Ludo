@@ -82,22 +82,24 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
         waitMessage.text = " ";
     }
 
-    internal void RedlayerDice(int diceId)
+    internal void RedlayerDice(int diceId,int diceCount)
     {
         object[] data =
         {
           PhotonNetwork.LocalPlayer,
-          diceId
+          diceId,
+          diceCount
         };
         RaiseEvt(StaticData.RED_DICE, data, ReceiverGroup.Others);
     } 
     
-    internal void GreenlayerDice(int diceId)
+    internal void GreenlayerDice(int diceId, int diceCount)
     {
         object[] data =
         {
           PhotonNetwork.LocalPlayer,
-          diceId
+          diceId,
+          diceCount
         };
         RaiseEvt(StaticData.GREEN_DICE, data, ReceiverGroup.Others);
     }
@@ -203,15 +205,17 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
             case StaticData.RED_DICE:
                 object[] redDiceData = (object[])photonEvent.CustomData;
                 int redDiceId = (int)redDiceData[1];
+                int redDiceCount = (int)redDiceData[2];
                 Debug.Log("Red Dice Id Received --> " + redDiceId);
-                gameLogic.GenerateDiceCount(redDiceId + 1);
+                gameLogic.GenerateDiceCountForOther(redDiceId + 1, redDiceCount);
                 break;
                     
             case StaticData.GREEN_DICE:
                 object[] greenDiceData = (object[])photonEvent.CustomData;
                 int greenDiceId = (int)greenDiceData[1];
+                int greenDiceCount = (int)greenDiceData[2];
                 Debug.Log("Green Dice Id Received --> " + greenDiceId);
-                gameLogic.GenerateDiceCount(greenDiceId - 1);
+                gameLogic.GenerateDiceCountForOther(greenDiceId - 1, greenDiceCount);
                 break;
             
             case StaticData.MOVE_RED:

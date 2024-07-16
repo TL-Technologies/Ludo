@@ -4,6 +4,7 @@ using System.IO;
 using UnityEngine;
 using System.Linq;
 using Photon.Pun;
+using Photon.Realtime;
 
 public class GameLogic : MonoBehaviour
 {
@@ -129,7 +130,51 @@ public class GameLogic : MonoBehaviour
 		}
 	}
 
-	public void GenerateDiceCount(int diceindex)
+    public void GenerateDiceCountForOther(int diceindex, int diceCount)
+    {
+        //Debug.Log("CANCLE ALL TWEEN");
+        LeanTween.cancelAll(true);
+        DisableClickOfAllDice();
+
+		CURRENT_DICE_COUNT = diceCount;
+
+        if (IsAllPiecesAtHome(diceindex) && CURRENT_DICE_COUNT != 6)
+        {
+            CURRENT_DICE_COUNT = 6;
+        }
+
+        //Stopping sequence of 6 dice face
+        if (CURRENT_DICE_COUNT == 6)
+        {
+            continuesSixDiceList.Add(diceindex);
+            if (continuesSixDiceList.Count > 2)
+            {
+                CURRENT_DICE_COUNT = Random.Range(1, 6);
+            }
+            else
+            {
+                isApplicableForSequentialTurn = true;
+            }
+        }
+        else
+        {
+            isApplicableForSequentialTurn = false;
+        }
+
+        //DEBUG WITH TEST DICE
+        if (isTestingWithWantedDice)
+        {
+            CURRENT_DICE_COUNT = currentWantedRolledDiceFaceCount;
+            isTestingWithWantedDice = false;
+        }
+
+        StartCoroutine(RollDice(diceindex, CURRENT_DICE_COUNT));
+    }
+
+
+
+
+    public void GenerateDiceCount(int diceindex)
 	{
 		//Debug.Log("CANCLE ALL TWEEN");
 		LeanTween.cancelAll(true);
@@ -160,6 +205,14 @@ public class GameLogic : MonoBehaviour
 			isApplicableForSequentialTurn = false;
 		}
 
+		 if (TURN_INDEX == 0)
+		 {
+            PhotonController.instance.RedlayerDice(diceindex, CURRENT_DICE_COUNT);
+		 }
+        else
+        {
+            PhotonController.instance.GreenlayerDice(diceindex, CURRENT_DICE_COUNT);
+        }
 		//DEBUG WITH TEST DICE
 		if (isTestingWithWantedDice)
 		{
@@ -255,6 +308,7 @@ public class GameLogic : MonoBehaviour
 				AudioFXRef.PieceAtFinalHome();
 				isApplicableForSequentialTurn = true;
 			}
+
 			//Kill Logic will be implemented here
 			//PieceArrangmentOnGrid(currentPlayerPieces[player_id][piece_id].GetComponentInChildren<GamePiece>().currentGlobalIndex);
 			DiscoverKillPossibilities(player_id, currentPlayerPieces[player_id][piece_id].GetComponentInChildren<GamePiece>().currentGlobalIndex);
@@ -710,6 +764,12 @@ public class GameLogic : MonoBehaviour
 		}
 	}
 
+	internal void ManageTurn(int turn)
+	{
+		DisableClickOfAllDice();
+		EnableClickOfDice(turn);
+    }
+
 	internal IEnumerator ChangeTurn()
 	{
 		//Debug.Log("CHANGE TURN ");
@@ -750,15 +810,17 @@ public class GameLogic : MonoBehaviour
 
 		if (PhotonNetwork.IsMasterClient && TURN_INDEX == 1)
 		{
-			Debug.Log("Disable dice for master");	
-            DisableClickOfDice(1);
+			Debug.Log("Disable dice for master");
+			DisableClickOfDice(1);
 		}
 
-		if (!PhotonNetwork.IsMasterClient && TURN_INDEX == 0 )
+		if (!PhotonNetwork.IsMasterClient && TURN_INDEX == 1)
 		{
-            Debug.Log("Disable dice for normal");
-            DisableClickOfDice(0);
-        }
+			Debug.Log("Disable dice for normal");
+			DisableClickOfDice(1);
+		}
+
+
 		Debug.Log("NEW TURN =>" + TURN_INDEX);
 
 		//Automatic dice roll for bot

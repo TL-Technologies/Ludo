@@ -25,16 +25,6 @@ public class GameDice : MonoBehaviour
         //Disable my all ongoing tweens and perform click
         StopTapDiceTween();
         GameLogicRef.GenerateDiceCount(diceID);
-        if (GameLogicRef.TURN_INDEX == 0)
-        {
-            PhotonController.instance.RedlayerDice(diceID);
-        }
-        else
-        {
-            PhotonController.instance.GreenlayerDice(diceID);
-        }
-        
-       
     }
 
     public void PlayRollDiceTween(int rolledDiceFace)

@@ -15,8 +15,6 @@ public static class StaticData {
     public const byte GREEN_DICE = 44;
     public const byte MOVE_RED = 45;
     public const byte MOVE_GREEN = 46;
-    public const byte RED_TURN = 47;
-    public const byte GREEN_TURN = 48;
 
     #endregion
 

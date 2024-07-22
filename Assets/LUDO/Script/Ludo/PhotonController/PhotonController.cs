@@ -1,6 +1,7 @@
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -68,13 +69,31 @@ public class PhotonController : MonoBehaviourPunCallbacks, IOnEventCallback
 
     internal void CreateRoom()
     {
-        string roomName = Random.Range(10000, 99999).ToString();
+        string roomName = UnityEngine.Random.Range(10000, 99999).ToString();
         PhotonNetwork.CreateRoom(roomName, new RoomOptions { MaxPlayers = 2 });
+    }
+    internal void CreateRoomExt(string roomName)
+    {
+        //string roomName = Random.Range(10000, 99999).ToString();
+        PhotonNetwork.CreateRoom(roomName, new RoomOptions { MaxPlayers = 2 });
+        MainMenuHandler.instance.namePanel.SetActive(false);
+        MainMenuHandler.instance.waitingPanel.SetActive(true);
     }
 
     internal void JoinRoom(string code)
     {
         PhotonNetwork.JoinRoom(code);
+    }
+
+    public override void OnCreateRoomFailed(short returnCode, string message)
+    {
+        if (message == "A game with the specified id already exist.")
+        {
+            JoinRoom(WebSocketConnection.instance.data.roomId);
+            MainMenuHandler.instance.namePanel.SetActive(false);
+            MainMenuHandler.instance.waitingPanel.SetActive(true);
+        }
+       
     }
 
     internal void DisableBottomMessage()

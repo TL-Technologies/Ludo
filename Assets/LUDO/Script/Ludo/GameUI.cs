@@ -228,7 +228,6 @@ public class GameUI : MonoBehaviour
     {
         LeanTween.move(confirmationUI, confirmationUI_RefStart.anchoredPosition, 0.5F).setEaseOutCirc();
         confirmationUIBK.gameObject.SetActive(false);
-        GoogleAdMobController.Instance.ShowInterstitialAd();
     }
 
     public void NavigateToMainScreenFromHome()
@@ -240,7 +239,6 @@ public class GameUI : MonoBehaviour
 
         ShowScreen(mainSelectionScreenPanel);
         PlayMainScreenAnimations();
-        GoogleAdMobController.Instance.ShowInterstitialAd();
     }
 
     public void ResetGameBoard()

@@ -110,8 +110,6 @@ public class GameLogic : MonoBehaviour
 		DisableClickOfAllDice();
 		EnableClickOfDice(TURN_INDEX);
 		currentGameDice[TURN_INDEX].GetComponent<GameDice>().PlayTapDiceTween();
-
-		GoogleAdMobController.Instance.ShowInterstitialAd();
 	}
 
 	void FillGlobalPieceList()
